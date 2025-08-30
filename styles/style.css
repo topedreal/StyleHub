@@ -489,3 +489,20 @@ a {
     transform: rotate(360deg);
   }
 }
+/*======================*/
+/*Footer*/
+/*======================*/
+.footer-gradient {
+  background: #ff4c4c;
+}
+
+.footer-gradient a:hover {
+  color: #fdf6f0;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .footer-gradient .row > div {
+    text-align: center;
+  }
+}

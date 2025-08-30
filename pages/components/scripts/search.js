@@ -1,22 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // ================================
   // Determine base path dynamically
-  // Supports three levels: ./ , ../ , ../../
-  // ================================
-  const pathParts = window.location.pathname.split("/").filter(Boolean);
-  let basePath;
-
-  switch (pathParts.length) {
-    case 1:
-      basePath = "../../"; // root folder
-      break;
-    case 2:
-      basePath = "../"; // one folder deep
-      break;
-    default:
-      basePath = "./"; // two or more folders deep
-      break;
-  }
+  const basePath = window.location.pathname.includes("index.html")
+    ? "./"
+    : "../"; // adjust if your page is in a subfolder
 
   // ================================
   // Load Search Overlay
@@ -35,9 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!openSearch || !searchOverlay) return;
 
-      // ================================
-      // Cart helpers
-      // ================================
       function getCart() {
         return JSON.parse(localStorage.getItem("cart") || "[]");
       }
@@ -49,9 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return getCart().some((it) => it.id === id);
       }
 
-      // ================================
-      // Overlay open/close
-      // ================================
       const openOverlay = () => {
         searchOverlay.style.display = "flex";
         searchInput.value = "";
@@ -73,11 +53,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.target === searchOverlay) closeOverlayFn();
       });
 
-      // ================================
-      // Fetch products
-      // ================================
       let allProducts = [];
       let loaded = false;
+
       async function ensureProducts() {
         if (loaded) return allProducts;
         const res = await fetch("https://fakestoreapi.com/products");
@@ -86,9 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return allProducts;
       }
 
-      // ================================
-      // Render search results
-      // ================================
       function renderResults(items) {
         if (!items.length) {
           searchResults.innerHTML = `<p class="text-center text-muted">No products found.</p>`;
@@ -142,9 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
 
-      // ================================
-      // Search input handling
-      // ================================
       let t;
       searchInput.addEventListener("input", async () => {
         clearTimeout(t);
@@ -162,7 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 180);
       });
 
-      // Show initial results on open
       openSearch.addEventListener("click", async () => {
         const products = await ensureProducts();
         renderResults(products.slice(0, 12));

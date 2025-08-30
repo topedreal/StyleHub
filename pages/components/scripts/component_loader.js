@@ -1,22 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // ================================
   // Determine base path dynamically
-  // Supports three levels: ./ , ../ , ../../
-  // ================================
-  const pathParts = window.location.pathname.split("/").filter(Boolean);
-  let basePath;
-
-  switch (pathParts.length) {
-    case 1:
-      basePath = "../../"; // root folder
-      break;
-    case 2:
-      basePath = "../"; // one folder deep
-      break;
-    default:
-      basePath = "./"; // two or more folders deep
-      break;
-  }
+  const basePath = window.location.pathname.includes("index.html")
+    ? "./"
+    : "../../"; // adjust if your page is in a subfolder
 
   // ================================
   // Load Loader
@@ -76,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!openSearch || !searchOverlay) return;
 
-      // Overlay open/close
       const openOverlay = () => {
         searchOverlay.style.display = "flex";
         searchInput.value = "";
