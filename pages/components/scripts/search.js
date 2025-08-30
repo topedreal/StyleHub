@@ -1,8 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Determine base path dynamically
-  const basePath = window.location.pathname.includes("index.html")
-    ? "./"
-    : "../"; // adjust if your page is in a subfolder
+  const pathParts = window.location.pathname.split("/").filter((p) => p);
+  const depth = pathParts.length - 1; // subtract 1 for the root file
+  const basePath = "../".repeat(depth);
+  // adjust if your page is in a subfolder
 
   // ================================
   // Load Search Overlay
