@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (pathParts.includes("index.html")) {
     basePath = "./";
   } else if (pathParts.length === 2) {
-    basePath = "../";
-  } else if (pathParts.length >= 3) {
     basePath = "../../";
+  } else if (pathParts.length >= 3) {
+    basePath = "../";
   }
 
   // ================================
