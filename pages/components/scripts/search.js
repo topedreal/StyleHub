@@ -1,17 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Determine base path dynamically based on current page location
-  const basePath = (() => {
-    const depth =
-      window.location.pathname
-        .replace(/\/$/, "") // remove trailing slash
-        .split("/").length - 2; // subtract 2 to count from repo root
-    return "./" + "../".repeat(depth);
-  })();
+  // Determine base path dynamically
+  const basePath = window.location.pathname.includes("index.html")
+    ? "./"
+    : "../"; // adjust if your page is in a subfolder
 
+  // ================================
+  // Load Search Overlay
+  // ================================
   fetch(`${basePath}pages/components/searchOverlay.html`)
     .then((res) => res.text())
     .then((data) => {
-      document.getElementById("searchComponent").innerHTML = data;
+      const searchEl = document.getElementById("searchComponent");
+      if (searchEl) searchEl.innerHTML = data;
 
       const openSearch = document.getElementById("openSearch");
       const searchOverlay = document.getElementById("searchOverlay");
