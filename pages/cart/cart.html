@@ -26,10 +26,34 @@
     <link href="../../styles/style.css" rel="stylesheet" />
 
     <title>Shopping Cart - StyleHub</title>
+    <style>
+      /* Ensure the search overlay appears above everything */
+      .search-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+      .search-box {
+        background: white;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        width: 90%;
+        max-width: 500px;
+      }
+    </style>
   </head>
 
   <body>
+    <!-- Search Overlay Injection Target -->
     <div id="searchComponent"></div>
+
     <!-- Navbar -->
     <header class="justify-between sticky-top">
       <nav class="navbar sticky-top navbar-expand-lg navbar-light">
@@ -77,19 +101,15 @@
                 <a class="nav-link" href="../contact.html">Contact</a>
               </li>
             </ul>
-            <!-- Icons -->
             <div class="d-flex align-items-center ms-md-4 gap-4">
               <a href="#">
                 <i class="bi bi-cart-fill fs-5"></i>
               </a>
 
-              <!-- 🔹 Navbar Search Button -->
+              <!-- Navbar Search Button -->
               <button id="openSearch" class="btn-search">
                 <i class="bi bi-search fs-5"></i>
               </button>
-
-             
-              </div>
             </div>
           </div>
         </div>
@@ -137,6 +157,8 @@
         </div>
       </div>
     </section>
+
+    <!-- Footer -->
     <div id="footer"></div>
 
     <!-- JS -->
@@ -144,6 +166,7 @@
     <script src="../components/scripts/component_loader.js"></script>
     <script src="../components/scripts/search.js"></script>
     <script src="../../scripts/script.js"></script>
+
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const checkoutBtn = document.getElementById("proceedCheckoutBtn");
