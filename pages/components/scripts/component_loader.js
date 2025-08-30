@@ -1,10 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // ================================
-  // Determine base path dynamically (3 options: ./, ../, ../../)
-  // ================================
-  const pathParts = window.location.pathname.split("/").filter(Boolean);
-  const depth = pathParts.length - 1; // depth of current page
-  const basePath = ["./", "../", "../../"][Math.min(depth, 2)]; // pick correct path
+  // Determine base path dynamically
+  const basePath = window.location.pathname.includes("index.html")
+    ? "./"
+    : "../../"; // adjust if your page is in a subfolder
 
   // ================================
   // Load Loader
