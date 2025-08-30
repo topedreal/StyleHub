@@ -1,8 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Determine base path dynamically
-  const basePath = window.location.pathname.includes("index.html")
-    ? "../"
-    : "../../"; // adjust if your page is in a subfolder
+  const pathParts = window.location.pathname.split("/").filter(Boolean);
+  let basePath = "./"; // default
+
+  if (pathParts.includes("index.html")) {
+    basePath = "./";
+  } else if (pathParts.length === 2) {
+    basePath = "../";
+  } else if (pathParts.length >= 3) {
+    basePath = "../../";
+  }
 
   // ================================
   // Load Search Overlay
