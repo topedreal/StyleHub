@@ -1,0 +1,84 @@
+/*======================*/
+/*Search Styles*/
+/*======================*/
+
+/* 🔹 Search Button */
+.btn-search {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* 🔹 Overlay */
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 20, 20, 0.92);
+  backdrop-filter: blur(2px);
+  display: none; /* shown via JS */
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  z-index: 9999;
+  overflow-y: auto;
+}
+
+/* 🔹 Search Input */
+.search-box {
+  width: min(800px, 92vw);
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.1); /* semi-transparent */
+  backdrop-filter: blur(10px); /* adds the blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+
+  z-index: 10000;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 1rem 3.2rem 1rem 1rem;
+  font-size: 1.05rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  outline: none;
+  background: var(--card-bg, #1e1e1e);
+  color: var(--text-color, #fff);
+  box-shadow: 0 8px 20px var(--card-shadow, rgba(0, 0, 0, 0.25));
+}
+
+.search-box input {
+  width: 100%;
+  padding: 1rem 3rem 1rem 1rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+}
+
+.close-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.8rem;
+  line-height: 1;
+  background: none;
+  border: 0;
+  color: var(--text-color, #fff);
+  cursor: pointer;
+}
+
+/* 🔹 Results */
+.results {
+  width: min(1000px, 92vw);
+  margin-top: 1.25rem;
+}
+.search-overlay .product-card {
+  background: var(--card-bg);
+  color: var(--text-color);
+  border-radius: 1rem;
+  padding: 16px;
+  box-shadow: 0 4px 12px var(--card-shadow);
+}
