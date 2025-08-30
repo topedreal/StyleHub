@@ -1,5 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("/pages/components/searchOverlay.html")
+  // Determine base path dynamically based on current page location
+  const basePath = (() => {
+    const depth =
+      window.location.pathname
+        .replace(/\/$/, "") // remove trailing slash
+        .split("/").length - 2; // subtract 2 to count from repo root
+    return "./" + "../".repeat(depth);
+  })();
+
+  fetch(`${basePath}pages/components/searchOverlay.html`)
     .then((res) => res.text())
     .then((data) => {
       document.getElementById("searchComponent").innerHTML = data;
