@@ -475,47 +475,58 @@ a {
   pointer-events: all;
 }
 
+/* Container for multiple rings */
 .spinner {
+  position: relative;
   width: 80px;
   height: 80px;
-  border: 6px solid rgba(255, 255, 255, 0.2);
-  border-top: 6px solid var(--primary-color); /* keep your theme color */
-  border-radius: 50%;
-  animation: spin 1s ease-in-out infinite;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); /* subtle glow */
-  position: relative;
 }
 
-/* Pulsing inner circle */
-.spinner::after {
-  content: "";
+/* Each ring */
+.spinner div {
+  box-sizing: border-box;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 20px;
-  height: 20px;
-  margin: -10px; /* center the inner circle */
-  background: rgba(255, 255, 255, 0.8);
+  width: 80px;
+  height: 80px;
+  border: 6px solid transparent;
+  border-top-color: var(--primary-color);
   border-radius: 50%;
-  animation: pulse 1s infinite ease-in-out;
+  animation: spin 1s linear infinite;
+}
+
+/* Smaller inner rings with delays for effect */
+.spinner div:nth-child(1) {
+  animation-delay: 0s;
+}
+.spinner div:nth-child(2) {
+  width: 60px;
+  height: 60px;
+  top: 10px;
+  left: 10px;
+  border-width: 4px;
+  animation-delay: 0.2s;
+}
+.spinner div:nth-child(3) {
+  width: 40px;
+  height: 40px;
+  top: 20px;
+  left: 20px;
+  border-width: 3px;
+  animation-delay: 0.4s;
 }
 
 @keyframes spin {
-  to {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
     transform: rotate(360deg);
   }
 }
 
-@keyframes pulse {
-  0%,
-  100% {
-    transform: scale(0.8);
-    opacity: 0.7;
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 1;
-  }
+/* Optional glow effect */
+.spinner div {
+  box-shadow: 0 0 10px var(--primary-color);
 }
 
 /*======================*/
