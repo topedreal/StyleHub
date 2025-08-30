@@ -250,17 +250,55 @@ document.addEventListener("DOMContentLoaded", () => {
   // -----------------------
   // Product rendering helpers
   // -----------------------
-  function isInCart(productId) {
-    return cart.some((item) => item.id === productId);
+  function renderProducts(containerId, products) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const cart = loadCart();
+
+    // Determine base URL dynamically for GitHub Pages or local
+    const repoBase = location.hostname.includes("github.io")
+      ? "/" + location.pathname.split("/")[1] + "/"
+      : "./";
+
+    container.innerHTML = products
+      .map((p) => {
+        const inCart = cart.some((item) => item.id === p.id);
+        return `
+      <div class="col-6 col-md-4 mb-4">
+        <div class="product-card h-100 p-3 shadow rounded">
+          <a href="${repoBase}pages/product.html?id=${p.id}">
+            <img src="${p.image}" alt="${p.title}" class="img-fluid mb-2">
+            <h5>${p.title}</h5>
+          </a>
+          <p class="price text-success fw-bold">$${p.price}</p>
+          <button 
+            class="btn btn-sm add-to-cart ${
+              inCart
+                ? "btn-secondary in-cart"
+                : "btn-outline-secondary add_to_cart"
+            }" 
+            data-id="${p.id}" style="min-width:150px">
+            <i class="bi ${inCart ? "bi-cart-dash" : "bi-cart-plus"}"></i> 
+            ${inCart ? "Remove" : "Add to Cart"}
+          </button>
+        </div>
+      </div>`;
+      })
+      .join("");
+
+    attachCartListeners(products);
   }
 
   function attachCartListeners(products) {
+    const cart = loadCart();
+
     document.querySelectorAll(".add-to-cart").forEach((btn) => {
       const id = parseInt(btn.dataset.id);
 
       function updateButtonState(inCart) {
         if (inCart) {
-          btn.innerHTML = `<i class="bi bi-cart-dash"></i> Remove `;
+          btn.innerHTML = `<i class="bi bi-cart-dash"></i> Remove`;
           btn.classList.remove("btn-outline-secondary", "add_to_cart");
           btn.classList.add("btn-secondary", "in-cart");
         } else {
@@ -271,13 +309,16 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.style.minWidth = "150px";
       }
 
-      updateButtonState(isInCart(id));
+      updateButtonState(cart.some((item) => item.id === id));
 
       btn.addEventListener("click", () => {
         const product = products.find((p) => p.id === id);
         if (!product) return;
 
-        if (isInCart(id)) {
+        const cart = loadCart();
+        const index = cart.findIndex((item) => item.id === id);
+
+        if (index > -1) {
           removeFromCart(id);
           updateButtonState(false);
         } else {
@@ -287,41 +328,6 @@ document.addEventListener("DOMContentLoaded", () => {
         updateCartBadge();
       });
     });
-  }
-
-  function renderProducts(containerId, products) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-
-    const cart = loadCart();
-
-    container.innerHTML = products
-      .map((p) => {
-        const inCart = cart.some((item) => item.id === p.id);
-        return `
-        <div class="col-6 col-md-4 mb-4">
-          <div class="product-card h-100 p-3 shadow rounded">
-            <a href="/pages/product.html?id=${p.id}">
-              <img src="${p.image}" alt="${p.title}" class="img-fluid mb-2">
-              <h5>${p.title}</h5>
-            </a>
-            <p class="price text-success fw-bold">$${p.price}</p>
-            <button 
-              class="btn btn-sm add-to-cart ${
-                inCart
-                  ? "btn-secondary in-cart"
-                  : "btn-outline-secondary add_to_cart"
-              }" 
-              data-id="${p.id}" style="min-width:150px">
-              <i class="bi ${inCart ? "bi-cart-dash" : "bi-cart-plus"}"></i> 
-              ${inCart ? "Remove" : "Add to Cart"}
-            </button>
-          </div>
-        </div>`;
-      })
-      .join("");
-
-    attachCartListeners(products);
   }
 
   function loadCategory(containerId, category, limit = 10) {
