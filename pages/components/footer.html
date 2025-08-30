@@ -31,15 +31,14 @@
           <a
             href="mailto:toperotimi01@gmail.com"
             class="text-light text-decoration-none"
+            >support@stylehub.com</a
           >
-            support@stylehub.com
-          </a>
         </p>
         <p class="mb-1">
           <i class="fas fa-phone me-2"></i>
-          <a href="tel:+2348089419708" class="text-light text-decoration-none">
-            +234 808 941 9708
-          </a>
+          <a href="tel:+2348089419708" class="text-light text-decoration-none"
+            >+234 808 941 9708</a
+          >
         </p>
         <p><i class="fas fa-map-marker-alt me-2"></i>Lagos, Nigeria</p>
       </div>
@@ -49,23 +48,19 @@
         <h5 class="fw-bold">Quick Links</h5>
         <ul class="list-unstyled">
           <li>
-            <a
-              class="footer-link text-light text-decoration-none"
-              data-page="pages/shop.html"
+            <a href="/pages/shop.html" class="text-light text-decoration-none"
               >Shop</a
             >
           </li>
           <li>
-            <a
-              class="footer-link text-light text-decoration-none"
-              data-page="pages/about.html"
+            <a href="/pages/about.html" class="text-light text-decoration-none"
               >About</a
             >
           </li>
           <li>
             <a
-              class="footer-link text-light text-decoration-none"
-              data-page="pages/contact.html"
+              href="/pages/contact.html"
+              class="text-light text-decoration-none"
               >Contact</a
             >
           </li>
@@ -96,14 +91,3 @@
     }
   }
 </style>
-
-<script>
-  // Universal footer links for GitHub Pages / any folder
-  const basePath = location.hostname.includes("github.io")
-    ? "/" + location.pathname.split("/")[1] + "/"
-    : "/";
-
-  document.querySelectorAll(".footer-link").forEach((link) => {
-    link.href = basePath + link.dataset.page;
-  });
-</script>

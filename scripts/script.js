@@ -248,6 +248,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // -----------------------
+  // Helper: get base URL dynamically
+  // -----------------------
+  function getRepoBase() {
+    if (location.hostname.includes("github.io")) {
+      // Example: https://username.github.io/repo-name/
+      const pathParts = location.pathname.split("/");
+      return "/" + pathParts[1] + "/";
+    }
+    // Local or root deployment
+    return "/";
+  }
+
+  // -----------------------
   // Product rendering helpers
   // -----------------------
   function renderProducts(containerId, products) {
@@ -255,41 +268,40 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!container) return;
 
     const cart = loadCart();
-
-    // Determine base URL dynamically for GitHub Pages or local
-    const repoBase = location.hostname.includes("github.io")
-      ? "/" + location.pathname.split("/")[1] + "/"
-      : "./";
+    const repoBase = getRepoBase(); // universal base path
 
     container.innerHTML = products
       .map((p) => {
         const inCart = cart.some((item) => item.id === p.id);
         return `
-      <div class="col-6 col-md-4 mb-4">
-        <div class="product-card h-100 p-3 shadow rounded">
-          <a href="${repoBase}pages/product.html?id=${p.id}">
-            <img src="${p.image}" alt="${p.title}" class="img-fluid mb-2">
-            <h5>${p.title}</h5>
-          </a>
-          <p class="price text-success fw-bold">$${p.price}</p>
-          <button 
-            class="btn btn-sm add-to-cart ${
-              inCart
-                ? "btn-secondary in-cart"
-                : "btn-outline-secondary add_to_cart"
-            }" 
-            data-id="${p.id}" style="min-width:150px">
-            <i class="bi ${inCart ? "bi-cart-dash" : "bi-cart-plus"}"></i> 
-            ${inCart ? "Remove" : "Add to Cart"}
-          </button>
-        </div>
-      </div>`;
+    <div class="col-6 col-md-4 mb-4">
+      <div class="product-card h-100 p-3 shadow rounded">
+        <a href="${repoBase}pages/product.html?id=${p.id}">
+          <img src="${p.image}" alt="${p.title}" class="img-fluid mb-2">
+          <h5>${p.title}</h5>
+        </a>
+        <p class="price text-success fw-bold">$${p.price}</p>
+        <button 
+          class="btn btn-sm add-to-cart ${
+            inCart
+              ? "btn-secondary in-cart"
+              : "btn-outline-secondary add_to_cart"
+          }" 
+          data-id="${p.id}" style="min-width:150px">
+          <i class="bi ${inCart ? "bi-cart-dash" : "bi-cart-plus"}"></i> 
+          ${inCart ? "Remove" : "Add to Cart"}
+        </button>
+      </div>
+    </div>`;
       })
       .join("");
 
     attachCartListeners(products);
   }
 
+  // -----------------------
+  // Cart button handling
+  // -----------------------
   function attachCartListeners(products) {
     const cart = loadCart();
 
@@ -330,6 +342,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // -----------------------
+  // Load category products
+  // -----------------------
   function loadCategory(containerId, category, limit = 10) {
     fetch("https://fakestoreapi.com/products")
       .then((res) => res.json())
@@ -400,10 +415,6 @@ document.addEventListener("DOMContentLoaded", () => {
     getCart: () => cart.slice(),
   };
 });
-
-// =====================
-// Spinner
-// =====================
 
 // =====================
 // Spinner
