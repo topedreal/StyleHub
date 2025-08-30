@@ -1,8 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Determine base path dynamically
-  const basePath = window.location.pathname.includes("index.html")
-    ? "./"
-    : "../../"; // adjust if your page is in a subfolder
+  // ================================
+  // Determine base path automatically
+  // ================================
+  const pathParts = window.location.pathname.split("/").filter(Boolean);
+  let basePath;
+
+  if (pathParts.length === 1) {
+    // e.g., /index.html → root
+    basePath = "./";
+  } else if (pathParts.length === 2) {
+    // e.g., /folder/page.html → one folder deep
+    basePath = "../";
+  } else {
+    // e.g., /folder/subfolder/page.html → two folders deep
+    basePath = "../../";
+  }
 
   // ================================
   // Load Loader
@@ -12,7 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       document.body.insertAdjacentHTML("beforeend", data);
 
-      // Loader helpers
       window.showLoading = () => {
         const overlay = document.getElementById("loadingOverlay");
         if (overlay) overlay.classList.add("active");
@@ -22,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (overlay) overlay.classList.remove("active");
       };
 
-      // Show loader on link clicks
       document.querySelectorAll("a").forEach((link) => {
         const href = link.getAttribute("href");
         if (href && !href.startsWith("#") && !href.startsWith("javascript:")) {
