@@ -1,8 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("/pages/components/searchOverlay.html")
+  // Determine base path dynamically
+  const basePath = window.location.pathname.includes("index.html")
+    ? "../"
+    : "../../"; // adjust if your page is in a subfolder
+
+  // ================================
+  // Load Search Overlay
+  // ================================
+  fetch(`${basePath}pages/components/searchOverlay.html`)
     .then((res) => res.text())
     .then((data) => {
-      document.getElementById("searchComponent").innerHTML = data;
+      const searchEl = document.getElementById("searchComponent");
+      if (searchEl) searchEl.innerHTML = data;
 
       const openSearch = document.getElementById("openSearch");
       const searchOverlay = document.getElementById("searchOverlay");
