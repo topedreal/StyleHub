@@ -8,13 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   switch (pathParts.length) {
     case 1:
-      basePath = "./"; // root folder
+      basePath = "../../"; // root folder
       break;
     case 2:
       basePath = "../"; // one folder deep
       break;
     default:
-      basePath = "../../"; // two or more folders deep
+      basePath = "./"; // two or more folders deep
       break;
   }
 
