@@ -49,17 +49,23 @@
         <h5 class="fw-bold">Quick Links</h5>
         <ul class="list-unstyled">
           <li>
-            <a href="./shop.html" class="text-light text-decoration-none"
+            <a
+              class="footer-link text-light text-decoration-none"
+              data-page="pages/shop.html"
               >Shop</a
             >
           </li>
           <li>
-            <a href="./about.html" class="text-light text-decoration-none"
+            <a
+              class="footer-link text-light text-decoration-none"
+              data-page="pages/about.html"
               >About</a
             >
           </li>
           <li>
-            <a href="./contact.html" class="text-light text-decoration-none"
+            <a
+              class="footer-link text-light text-decoration-none"
+              data-page="pages/contact.html"
               >Contact</a
             >
           </li>
@@ -90,3 +96,14 @@
     }
   }
 </style>
+
+<script>
+  // Universal footer links for GitHub Pages / any folder
+  const basePath = location.hostname.includes("github.io")
+    ? "/" + location.pathname.split("/")[1] + "/"
+    : "/";
+
+  document.querySelectorAll(".footer-link").forEach((link) => {
+    link.href = basePath + link.dataset.page;
+  });
+</script>
