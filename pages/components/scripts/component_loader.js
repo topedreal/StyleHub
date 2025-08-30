@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ================================
   // Load Loader
   // ================================
-  fetch("pages/components/loader.html")
+  fetch("StyleHub/pages/components/loader.html")
     .then((res) => res.text())
     .then((data) => {
       document.body.insertAdjacentHTML("beforeend", data); // inject loader HTML
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ================================
   // Load Footer
   // ================================
-  fetch("pages/components/footer.html")
+  fetch("StyleHub/pages/components/footer.html")
     .then((res) => res.text())
     .then((data) => {
       const footerEl = document.getElementById("footer");
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ================================
   // Load Search Overlay
   // ================================
-  fetch("pages/components/searchOverlay.html")
+  fetch("StyleHub/pages/components/searchOverlay.html")
     .then((res) => res.text())
     .then((data) => {
       const searchEl = document.getElementById("searchComponent");
