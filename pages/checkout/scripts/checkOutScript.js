@@ -86,6 +86,10 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     // Basic validation
+    const cardInput = document.getElementById("cardNumber");
+    const expiryInput = document.getElementById("expiryDate");
+    const cvv = document.getElementById("cvv").value;
+
     if (cardInput.value.replace(/\s/g, "").length !== 16) {
       alert("Please enter a valid 16-digit card number.");
       return;
@@ -94,7 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Please enter a valid expiry date (MM/YY).");
       return;
     }
-    const cvv = document.getElementById("cvv").value;
     if (!/^[0-9]{3,4}$/.test(cvv)) {
       alert("Please enter a valid CVV (3 or 4 digits).");
       return;
@@ -118,7 +121,14 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("lastOrder", JSON.stringify(orderDetails));
       localStorage.removeItem("cart");
 
-      window.location.href = "/pages/orderConfrimation/order-confirmation.html";
+      // ✅ Dynamic path for GitHub Pages or local
+      const basePath = location.hostname.includes("github.io")
+        ? "/" +
+          location.pathname.split("/")[1] +
+          "/pages/orderConfrimation/order-confirmation.html"
+        : "./order-confirmation.html";
+
+      window.location.href = basePath;
     }, 1500);
   });
 });
