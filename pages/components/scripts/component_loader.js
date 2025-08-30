@@ -1,19 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
   // ================================
-  // Determine base path automatically
+  // Determine base path dynamically
+  // Supports three levels: ./ , ../ , ../../
   // ================================
   const pathParts = window.location.pathname.split("/").filter(Boolean);
   let basePath;
 
-  if (pathParts.length === 1) {
-    // e.g., /index.html → root
-    basePath = "./";
-  } else if (pathParts.length === 2) {
-    // e.g., /folder/page.html → one folder deep
-    basePath = "../";
-  } else {
-    // e.g., /folder/subfolder/page.html → two folders deep
-    basePath = "../../";
+  switch (pathParts.length) {
+    case 1:
+      basePath = "./"; // root folder
+      break;
+    case 2:
+      basePath = "../"; // one folder deep
+      break;
+    default:
+      basePath = "../../"; // two or more folders deep
+      break;
   }
 
   // ================================
@@ -24,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       document.body.insertAdjacentHTML("beforeend", data);
 
+      // Loader helpers
       window.showLoading = () => {
         const overlay = document.getElementById("loadingOverlay");
         if (overlay) overlay.classList.add("active");
@@ -33,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (overlay) overlay.classList.remove("active");
       };
 
+      // Show loader on link clicks
       document.querySelectorAll("a").forEach((link) => {
         const href = link.getAttribute("href");
         if (href && !href.startsWith("#") && !href.startsWith("javascript:")) {
@@ -72,6 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!openSearch || !searchOverlay) return;
 
+      // Overlay open/close
       const openOverlay = () => {
         searchOverlay.style.display = "flex";
         searchInput.value = "";

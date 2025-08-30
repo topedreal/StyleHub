@@ -6,12 +6,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const pathParts = window.location.pathname.split("/").filter(Boolean);
   let basePath;
 
-  if (pathParts.length === 1) {
-    basePath = "./"; // root folder
-  } else if (pathParts.length === 2) {
-    basePath = "../"; // one folder deep
-  } else {
-    basePath = "../../"; // two folders deep
+  switch (pathParts.length) {
+    case 1:
+      basePath = "./"; // root folder
+      break;
+    case 2:
+      basePath = "../"; // one folder deep
+      break;
+    default:
+      basePath = "../../"; // two or more folders deep
+      break;
   }
 
   // ================================
@@ -31,7 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!openSearch || !searchOverlay) return;
 
+      // ================================
       // Cart helpers
+      // ================================
       function getCart() {
         return JSON.parse(localStorage.getItem("cart") || "[]");
       }
@@ -43,7 +49,9 @@ document.addEventListener("DOMContentLoaded", () => {
         return getCart().some((it) => it.id === id);
       }
 
+      // ================================
       // Overlay open/close
+      // ================================
       const openOverlay = () => {
         searchOverlay.style.display = "flex";
         searchInput.value = "";
@@ -65,7 +73,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.target === searchOverlay) closeOverlayFn();
       });
 
+      // ================================
       // Fetch products
+      // ================================
       let allProducts = [];
       let loaded = false;
       async function ensureProducts() {
@@ -76,7 +86,9 @@ document.addEventListener("DOMContentLoaded", () => {
         return allProducts;
       }
 
+      // ================================
       // Render search results
+      // ================================
       function renderResults(items) {
         if (!items.length) {
           searchResults.innerHTML = `<p class="text-center text-muted">No products found.</p>`;
@@ -130,7 +142,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
 
-      // Search input
+      // ================================
+      // Search input handling
+      // ================================
       let t;
       searchInput.addEventListener("input", async () => {
         clearTimeout(t);
@@ -148,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 180);
       });
 
-      // Show initial results
+      // Show initial results on open
       openSearch.addEventListener("click", async () => {
         const products = await ensureProducts();
         renderResults(products.slice(0, 12));
