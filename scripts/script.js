@@ -405,6 +405,10 @@ document.addEventListener("DOMContentLoaded", () => {
 // Spinner
 // =====================
 
+// =====================
+// Spinner
+// =====================
+
 function showLoading() {
   const overlay = document.getElementById("loadingOverlay");
   if (overlay) overlay.classList.add("active");
@@ -414,3 +418,9 @@ function hideLoading() {
   const overlay = document.getElementById("loadingOverlay");
   if (overlay) overlay.classList.remove("active");
 }
+
+// ✅ Ensure spinner hides when page becomes visible (back/forward navigation)
+window.addEventListener("pageshow", (event) => {
+  // The page is loaded from cache or newly loaded
+  hideLoading();
+});
