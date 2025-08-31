@@ -317,7 +317,6 @@ document.addEventListener("DOMContentLoaded", () => {
           btn.classList.remove("btn-secondary", "in-cart");
           btn.classList.add("btn-outline-secondary", "add_to_cart");
         }
-        btn.style.minWidth = "150px";
       }
 
       updateButtonState(cart.some((item) => item.id === id));
