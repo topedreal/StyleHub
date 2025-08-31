@@ -229,7 +229,8 @@ body {
   margin-bottom: 15px;
 }
 
-.add_to_cart {
+.add_to_cart,
+.in-cart {
   background-color: var(--primary-color);
   color: #fff;
   padding: 0.27rem 0.75rem; /* same as .btn & .btn-secondary */
@@ -239,7 +240,8 @@ body {
   transition: 0.3s;
   width: 100%; /* full width inside card */
   max-width: 100%; /* prevent overflow */
-  white-space: nowrap;
+  white-space: wrap;
+  text-align: center;
 }
 
 .add_to_cart:hover {
