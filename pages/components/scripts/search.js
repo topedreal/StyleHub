@@ -1,8 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Determine base path dynamically
-  const basePath = window.location.pathname.includes("index.html")
-    ? "./"
-    : "../"; // adjust if your page is in a subfolder
+  // ✅ Determine base path dynamically
+  const path = window.location.pathname;
+
+  // We are at root (e.g. /StyleHub/ or /StyleHub/index.html)
+  const isRoot =
+    path === "/StyleHub/" || path.endsWith("/index.html") || path === "/"; // safety if hosted at root without repo-name
+
+  const basePath = isRoot ? "./" : "../";
 
   // ================================
   // Load Search Overlay
