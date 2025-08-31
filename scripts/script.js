@@ -281,16 +281,15 @@ document.addEventListener("DOMContentLoaded", () => {
           <h5>${p.title}</h5>
         </a>
         <p class="price text-success fw-bold">$${p.price}</p>
-        <button 
-          class="btn btn-sm add-to-cart ${
-            inCart
-              ? "btn-secondary in-cart"
-              : "btn-outline-secondary add_to_cart"
-          }" 
-          data-id="${p.id}" style="min-width:150px">
-          <i class="bi ${inCart ? "bi-cart-dash" : "bi-cart-plus"}"></i> 
-          ${inCart ? "Remove" : "Add to Cart"}
-        </button>
+      <button 
+        class="btn btn-sm w-100 add-to-cart ${
+          inCart ? "btn-secondary in-cart" : "btn-outline-secondary add_to_cart"
+        }" 
+        data-id="${p.id}">
+        <i class="bi ${inCart ? "bi-cart-dash" : "bi-cart-plus"}"></i> 
+        ${inCart ? "Remove" : "Add to Cart"}
+      </button>
+
       </div>
     </div>`;
       })

@@ -237,6 +237,9 @@ body {
   margin-top: auto;
   border-radius: 0.375rem; /* Bootstrap default radius */
   transition: 0.3s;
+  width: 100%; /* full width inside card */
+  max-width: 100%; /* prevent overflow */
+  white-space: nowrap;
 }
 
 .add_to_cart:hover {
