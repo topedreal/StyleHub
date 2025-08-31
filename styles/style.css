@@ -229,8 +229,7 @@ body {
   margin-bottom: 15px;
 }
 
-.add_to_cart,
-.in-cart {
+.add_to_cart {
   background-color: var(--primary-color);
   color: #fff;
   padding: 0.27rem 0.75rem; /* same as .btn & .btn-secondary */
@@ -242,6 +241,19 @@ body {
   max-width: 100%; /* prevent overflow */
   white-space: wrap;
   text-align: center;
+}
+
+.in-cart {
+  color: #fff;
+  padding: 0.27rem 0.75rem; /* same as .btn & .btn-secondary */
+  border: none;
+  margin-top: auto;
+  border-radius: 0.375rem; /* Bootstrap default radius */
+  transition: 0.3s;
+  width: 100%; /* full width inside card */
+  max-width: 100%; /* prevent overflow */
+  white-space: wrap;
+  text-align: center; /* keep icon + text centered */
 }
 
 .add_to_cart:hover {
